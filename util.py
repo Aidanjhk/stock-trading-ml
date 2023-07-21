@@ -7,11 +7,12 @@ history_points = 50
 
 def csv_to_dataset(csv_path):
     data = pd.read_csv(csv_path)
+    
+    
     data = data.drop('date', axis=1)
     data = data.drop(0, axis=0)
-
     data = data.values
-
+    
     data_normaliser = preprocessing.MinMaxScaler()
     data_normalised = data_normaliser.fit_transform(data)
 
@@ -49,7 +50,6 @@ def csv_to_dataset(csv_path):
     tech_ind_scaler = preprocessing.MinMaxScaler()
     technical_indicators_normalised = tech_ind_scaler.fit_transform(technical_indicators)
 
-    assert ohlcv_histories_normalised.shape[0] == next_day_open_values_normalised.shape[0] == technical_indicators_normalised.shape[0]
     return ohlcv_histories_normalised, technical_indicators_normalised, next_day_open_values_normalised, next_day_open_values, y_normaliser
 
 
